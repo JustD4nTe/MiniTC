@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace MiniTC
 {
@@ -51,6 +52,20 @@ namespace MiniTC
             get { return (List<string>)GetValue(ListOfFilesProperty); }
             set { SetValue(ListOfFilesProperty, value); }
         }
+
+        public static readonly DependencyProperty SelectedFileProperty =
+            DependencyProperty.Register(
+                nameof(SelectedFile),
+                typeof(string),
+                typeof(PanelTC),
+                new FrameworkPropertyMetadata(null)
+            );
+
+        public string SelectedFile
+        {
+            get { return (string)GetValue(SelectedLogicalDriveProperty); }
+            set { SetValue(SelectedLogicalDriveProperty, value); }
+        }
         #endregion
 
         #region Register Events
@@ -64,6 +79,28 @@ namespace MiniTC
             add { AddHandler(LogicDriveChangedEvent, value); }
             remove { RemoveHandler(LogicDriveChangedEvent, value); }
         }
+
+        public static readonly RoutedEvent SelectedFileChangedEvent =
+            EventManager.RegisterRoutedEvent(nameof(SelectedFileChanged),
+                         RoutingStrategy.Bubble, typeof(RoutedEventHandler),
+                         typeof(PanelTC));
+
+        public event RoutedEventHandler SelectedFileChanged
+        {
+            add { AddHandler(SelectedFileChangedEvent, value); }
+            remove { RemoveHandler(SelectedFileChangedEvent, value); }
+        }
+
+        public static readonly RoutedEvent FileDoubleClickedEvent =
+            EventManager.RegisterRoutedEvent(nameof(FileDoubleClicked),
+                         RoutingStrategy.Bubble, typeof(RoutedEventHandler),
+                         typeof(PanelTC));
+
+        public event RoutedEventHandler FileDoubleClicked
+        {
+            add { AddHandler(FileDoubleClickedEvent, value); }
+            remove { RemoveHandler(FileDoubleClickedEvent, value); }
+        }
         #endregion
 
         public PanelTC()
@@ -73,5 +110,11 @@ namespace MiniTC
 
         private void logicalDrivers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         => RaiseEvent(new RoutedEventArgs(LogicDriveChangedEvent));
+
+        private void listOfFiles_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        => RaiseEvent(new RoutedEventArgs(SelectedFileChangedEvent));
+
+        private void listOfFiles_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        => RaiseEvent(new RoutedEventArgs(FileDoubleClickedEvent));
     }
 }

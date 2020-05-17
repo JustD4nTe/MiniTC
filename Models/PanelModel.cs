@@ -8,8 +8,11 @@ namespace MiniTC.Models
     {
         public List<string> insideFolder { get; private set; }
 
-        public void SetFolderFiles(string path)
+        public string currentPath { get; private set; }
+
+        public void SetFoldersAndFilesOfCurrentFolder(string path)
         {
+            currentPath = path;
             insideFolder = new List<string>();
 
             var folders = Directory.GetDirectories(path);
@@ -17,6 +20,15 @@ namespace MiniTC.Models
 
             insideFolder.AddRange(folders.Select(x => "<D>" + Path.GetFileName(x)));
             insideFolder.AddRange(files.Select(x => Path.GetFileName(x)));
+        }
+
+        public void EnterFile(string fileName)
+        {
+            if(fileName.Contains("<D>"))
+            {
+                var filePath = currentPath + @"\" + fileName.Substring(3);
+                SetFoldersAndFilesOfCurrentFolder(filePath);
+            }
         }
 
         public string[] GetLogicalDrivers()

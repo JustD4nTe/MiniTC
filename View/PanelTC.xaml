@@ -48,8 +48,10 @@
                         }"
             />
         </Grid>
-        <ListView   Grid.Row="2" x:Name="listOfFiles"
+        <ListView   Grid.Row="2" x:Name="listOfFiles" 
                     Margin="10"
+                    SelectionChanged="listOfFiles_SelectionChanged"
+                    MouseDoubleClick="listOfFiles_MouseDoubleClick"
                     ItemsSource="{
                         Binding Path=ListOfFiles,
                         Mode=OneWay,
@@ -58,6 +60,15 @@
                             AncestorType={x:Type UserControl}
                         }                        
                     }"
+                    SelectedItem="{
+                            Binding Path=SelectedFile,
+                            Mode=OneWayToSource,
+                            UpdateSourceTrigger=PropertyChanged,
+                            RelativeSource={
+                                RelativeSource Mode=FindAncestor,
+                                AncestorType={x:Type UserControl}
+                            }                        
+                        }"
         >
             <ListBox.ItemTemplate>
                 <DataTemplate>

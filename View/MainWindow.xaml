@@ -4,13 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:MiniTC.ViewModel"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:MiniTC"
         mc:Ignorable="d"
         Title="MiniTC" >
     <Window.Resources>
         <vm:MiniTCViewModel x:Key="miniTCViewModel"/>
     </Window.Resources>
-    <Grid DataContext="{StaticResource miniTCViewModel}">
+    <Grid DataContext="{StaticResource ResourceKey=miniTCViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="6*"/>
             <RowDefinition/>
@@ -23,15 +24,29 @@
             <local:PanelTC  Grid.Column="0" x:Name="leftPanel" 
                             LogicalDrivers="{Binding Path=LogicalDrivers}"
                             ListOfFiles="{Binding Path=LeftInsideOfFolder, Mode=OneWay}"
-                            SelectedLogicalDrive="{Binding Path=LeftSelectedItemIndex, Mode=OneWayToSource}"
-                            />
+                            SelectedLogicalDrive="{Binding Path=LeftSelectedDrive, Mode=OneWayToSource}"
+                            SelectedFile="{Binding Path=LeftSelectedFile, Mode=OneWayToSource}"
+                            >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="FileDoubleClicked">
+                        <i:InvokeCommandAction Command="{Binding LeftEnterTheSelectedFolder}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </local:PanelTC>
 
 
             <local:PanelTC  Grid.Column="1" x:Name="rigthPanel"  
                             LogicalDrivers="{Binding Path=LogicalDrivers}"
                             ListOfFiles="{Binding Path=RightInsideOfFolder, Mode=OneWay}"
-                            SelectedLogicalDrive="{Binding Path=RightSelectedItemIndex, Mode=OneWayToSource}"
-                            />
+                            SelectedLogicalDrive="{Binding Path=RightSelectedDrive, Mode=OneWayToSource}"
+                            SelectedFile="{Binding Path=RightSelectedFile, Mode=OneWayToSource}"
+                            >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="FileDoubleClicked">
+                        <i:InvokeCommandAction Command="{Binding RightEnterTheSelectedFolder}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </local:PanelTC>
 
 
         </Grid>
