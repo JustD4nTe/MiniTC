@@ -1,6 +1,5 @@
 ﻿using MiniTC.Models;
 using MiniTC.ViewModel.BaseClass;
-using System.IO;
 
 namespace MiniTC.ViewModel
 {
