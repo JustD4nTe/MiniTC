@@ -34,7 +34,7 @@ namespace MiniTC.ViewModel
                 if (value != null)
                 {
                     left.SetFoldersAndFilesOfCurrentFolder(value);
-                    onPropertyChanged(nameof(LeftSelectedDrive), nameof(LeftInsideOfFolder));
+                    onPropertyChanged(nameof(LeftSelectedDrive), nameof(LeftInsideOfFolder), nameof(LeftPath));
                 }
             }
         }
@@ -46,10 +46,21 @@ namespace MiniTC.ViewModel
                 if (value != null)
                 {
                     right.SetFoldersAndFilesOfCurrentFolder(value);
-                    onPropertyChanged(nameof(RightSelectedDrive), nameof(RightInsideOfFolder));
+                    onPropertyChanged(nameof(RightSelectedDrive), nameof(RightInsideOfFolder), nameof(RightPath));
                 }
             }
         }
+
+        public string LeftPath
+        {
+            get { return left.currentPath; }
+        }
+
+        public string RightPath
+        {
+            get { return right.currentPath; }
+        }
+
 
         private string leftSelectedFile;
         public string LeftSelectedFile
@@ -74,7 +85,7 @@ namespace MiniTC.ViewModel
                 if (leftEnterTheSelectedFolder == null)
                 {
                     leftEnterTheSelectedFolder = new RelayCommand(
-                        x => { left.EnterFile(leftSelectedFile); onPropertyChanged(nameof(LeftInsideOfFolder)); },
+                        x => { left.EnterFile(leftSelectedFile); onPropertyChanged(nameof(LeftInsideOfFolder), nameof(LeftPath)); },
                         x => true
                         );
                 }
@@ -90,7 +101,7 @@ namespace MiniTC.ViewModel
                 if (rightEnterTheSelectedFolder == null)
                 {
                     rightEnterTheSelectedFolder = new RelayCommand(
-                        x => { right.EnterFile(rightSelectedFile); onPropertyChanged(nameof(RightInsideOfFolder)); },
+                        x => { right.EnterFile(rightSelectedFile); onPropertyChanged(nameof(RightInsideOfFolder), nameof(RightPath)); },
                         x => true
                         );
                 }

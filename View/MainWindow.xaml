@@ -26,6 +26,7 @@
                             ListOfFiles="{Binding Path=LeftInsideOfFolder, Mode=OneWay}"
                             SelectedLogicalDrive="{Binding Path=LeftSelectedDrive, Mode=OneWayToSource}"
                             SelectedFile="{Binding Path=LeftSelectedFile, Mode=OneWayToSource}"
+                            TextPath="{Binding Path=LeftPath, Mode=OneWay}"
                             >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="FileDoubleClicked">
@@ -40,6 +41,7 @@
                             ListOfFiles="{Binding Path=RightInsideOfFolder, Mode=OneWay}"
                             SelectedLogicalDrive="{Binding Path=RightSelectedDrive, Mode=OneWayToSource}"
                             SelectedFile="{Binding Path=RightSelectedFile, Mode=OneWayToSource}"
+                            TextPath="{Binding Path=RightPath, Mode=OneWay}"
                             >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="FileDoubleClicked">

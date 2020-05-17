@@ -66,6 +66,20 @@ namespace MiniTC
             get { return (string)GetValue(SelectedLogicalDriveProperty); }
             set { SetValue(SelectedLogicalDriveProperty, value); }
         }
+        
+        public static readonly DependencyProperty TextPathProperty =
+            DependencyProperty.Register(
+                nameof(TextPath),
+                typeof(string),
+                typeof(PanelTC),
+                new FrameworkPropertyMetadata(null)
+            );
+
+        public string TextPath
+        {
+            get { return (string)GetValue(TextPathProperty); }
+            set { SetValue(TextPathProperty, value); }
+        }
         #endregion
 
         #region Register Events
