@@ -25,10 +25,11 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Margin="0 0 15 0" Content="path" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <Label Grid.Column="0" Margin="0 0 15 0" Content="Drive" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
             <ComboBox   Grid.Column="1" x:Name="logicalDrivers" x:FieldModifier="private"
                         VerticalAlignment="Center" HorizontalAlignment="Stretch" 
+                        SelectionChanged="logicalDrivers_SelectionChanged"
                         ItemsSource="{
                             Binding Path=LogicalDrivers,
                             RelativeSource={
@@ -36,9 +37,36 @@
                                 AncestorType={x:Type UserControl}
                             }
                         }"
+                        SelectedItem="{
+                            Binding Path=SelectedLogicalDrive,
+                            Mode=OneWayToSource,
+                            UpdateSourceTrigger=PropertyChanged,
+                            RelativeSource={
+                                RelativeSource Mode=FindAncestor,
+                                AncestorType={x:Type UserControl}
+                            }                        
+                        }"
             />
         </Grid>
-        <ListView Grid.Row="2" Margin="10">
+        <ListView   Grid.Row="2" x:Name="listOfFiles"
+                    Margin="10"
+                    ItemsSource="{
+                        Binding Path=ListOfFiles,
+                        Mode=OneWay,
+                        RelativeSource={
+                            RelativeSource Mode=FindAncestor,
+                            AncestorType={x:Type UserControl}
+                        }                        
+                    }"
+        >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListView>
+
     </Grid>
 </UserControl>
