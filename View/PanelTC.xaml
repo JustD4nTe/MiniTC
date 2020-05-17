@@ -54,10 +54,9 @@
                                 RelativeSource Mode=FindAncestor,
                                 AncestorType={x:Type UserControl}
                             }                        
-                        }"
-            />
+                        }"/>
         </Grid>
-        <ListView   Grid.Row="2" x:Name="listOfFiles" 
+        <ListBox   Grid.Row="2" x:Name="listOfFiles" 
                     Margin="10"
                     SelectionChanged="listOfFiles_SelectionChanged"
                     MouseDoubleClick="listOfFiles_MouseDoubleClick"
@@ -86,7 +85,7 @@
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-        </ListView>
+        </ListBox>
 
     </Grid>
 </UserControl>
