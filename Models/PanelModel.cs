@@ -26,10 +26,17 @@ namespace MiniTC.Models
             }
 
             insideFolder = new List<string>();
+
+            // when we are on logical drive, we can't go up in the folder tree
+            if (!GetLogicalDrivers().Contains(Path.GetFullPath(path)))
+            {
+                insideFolder.Add("..");
+            }
+
             insideFolder.AddRange(folders.Select(x => "<D>" + Path.GetFileName(x)));
             insideFolder.AddRange(files.Select(x => Path.GetFileName(x)));
 
-            currentPath = path;
+            currentPath = Path.GetFullPath(path);  
 
             return true;
         }
@@ -41,7 +48,12 @@ namespace MiniTC.Models
                 var filePath = currentPath + @"\" + fileName.Substring(3);
                 return SetFoldersAndFilesOfCurrentFolder(filePath);
             }
-
+            // move up
+            if(fileName == "..")
+            {
+                var filePath = currentPath + @"\" + fileName;
+                return SetFoldersAndFilesOfCurrentFolder(filePath);
+            }
             return true;
         }
 
