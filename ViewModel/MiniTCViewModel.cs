@@ -2,6 +2,7 @@
 using MiniTC.ViewModel.BaseClass;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Windows;
 using System.Windows.Input;
 
 namespace MiniTC.ViewModel
@@ -85,7 +86,7 @@ namespace MiniTC.ViewModel
                 if (leftEnterTheSelectedFolder == null)
                 {
                     leftEnterTheSelectedFolder = new RelayCommand(
-                        x => { left.EnterFile(leftSelectedFile); onPropertyChanged(nameof(LeftInsideOfFolder), nameof(LeftPath)); },
+                        x => LeftEnterFile(),
                         x => true
                         );
                 }
@@ -101,7 +102,7 @@ namespace MiniTC.ViewModel
                 if (rightEnterTheSelectedFolder == null)
                 {
                     rightEnterTheSelectedFolder = new RelayCommand(
-                        x => { right.EnterFile(rightSelectedFile); onPropertyChanged(nameof(RightInsideOfFolder), nameof(RightPath)); },
+                        x => RightEnterFile(),
                         x => true
                         );
                 }
@@ -114,6 +115,30 @@ namespace MiniTC.ViewModel
         {
             left = new PanelModel();
             right = new PanelModel();
+        }
+
+        public void LeftEnterFile()
+        {
+            if (!left.EnterFile(leftSelectedFile)) 
+            {
+                var message = "You have not perrmision to open this folder.\nRun program as administrator.";
+                MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            onPropertyChanged(nameof(LeftInsideOfFolder), nameof(LeftPath));
+        }
+
+        public void RightEnterFile()
+        {
+            if (!right.EnterFile(rightSelectedFile))
+            {
+                var message = "You have not perrmision to open this folder.\nRun program as administrator.";
+                MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            onPropertyChanged(nameof(LeftInsideOfFolder), nameof(RightPath));
         }
     }
 }
