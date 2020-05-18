@@ -1,9 +1,10 @@
 ﻿using MiniTC.Models;
 using MiniTC.ViewModel.BaseClass;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
+
+using resource = MiniTC.Properties.Resources;
 
 namespace MiniTC.ViewModel
 {
@@ -121,24 +122,30 @@ namespace MiniTC.ViewModel
         {
             if (!left.EnterFile(leftSelectedFile)) 
             {
-                var message = "You have not perrmision to open this folder.\nRun program as administrator.";
-                MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                MessageBox.Show(resource.PerrmissionError,
+                                resource.Error,
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
             }
-
-            onPropertyChanged(nameof(LeftInsideOfFolder), nameof(LeftPath));
+            else
+            {
+                onPropertyChanged(nameof(LeftInsideOfFolder), nameof(LeftPath));
+            }
         }
 
         public void RightEnterFile()
         {
             if (!right.EnterFile(rightSelectedFile))
             {
-                var message = "You have not perrmision to open this folder.\nRun program as administrator.";
-                MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                MessageBox.Show(resource.PerrmissionError,
+                                resource.Error,
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
             }
-
-            onPropertyChanged(nameof(LeftInsideOfFolder), nameof(RightPath));
+            else
+            {
+                onPropertyChanged(nameof(LeftInsideOfFolder), nameof(RightPath));
+            }
         }
     }
 }

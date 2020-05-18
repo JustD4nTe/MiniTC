@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:MiniTC.ViewModel"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:resx="clr-namespace:MiniTC.Properties"
         xmlns:local="clr-namespace:MiniTC"
         mc:Ignorable="d"
         Title="MiniTC" >
@@ -52,6 +53,6 @@
 
 
         </Grid>
-        <Button Grid.Row="1" Width="200" Height="50" Content="Click me ;))"/>
+        <Button Grid.Row="1" Width="200" Height="50" Content="{x:Static resx:Resources.Copy}"/>
     </Grid>
 </Window>

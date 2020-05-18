@@ -3,9 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MiniTC"
+             xmlns:resx="clr-namespace:MiniTC.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="540">
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -17,7 +18,8 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Margin="0 0 15 0" Content="path" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <Label Grid.Column="0" Margin="0 0 15 0" HorizontalAlignment="Right" VerticalAlignment="Center"
+                   Content="{x:Static resx:Resources.Path}"/>
             <TextBox Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" IsEnabled="False"
                      Text="{
                         Binding Path=TextPath,
@@ -34,7 +36,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Margin="0 0 15 0" Content="Drive" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <Label Grid.Column="0" Margin="0 0 15 0" Content="{x:Static resx:Resources.Drive}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
             <ComboBox   Grid.Column="1" x:Name="logicalDrivers" x:FieldModifier="private"
                         VerticalAlignment="Center" HorizontalAlignment="Stretch" 
