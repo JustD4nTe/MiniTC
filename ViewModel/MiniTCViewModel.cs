@@ -11,22 +11,22 @@ namespace MiniTC.ViewModel
     class MiniTCViewModel : ViewModelBase
     {
         #region prop
-        private PanelModel left;
-        private PanelModel right;
+        private IPanelTC left;
+        private IPanelTC right;
 
         public string[] LogicalDrivers
         {
-            get { return left.GetLogicalDrivers(); }
+            get { return left.ListOfDrives; }
         }
 
         public List<string> LeftInsideOfFolder
         {
-            get { return left.insideFolder; }
+            get { return left.FolderInside; }
         }
 
         public List<string> RightInsideOfFolder
         {
-            get { return right.insideFolder; }
+            get { return right.FolderInside; }
         }
 
         public string LeftSelectedDrive
@@ -55,12 +55,12 @@ namespace MiniTC.ViewModel
 
         public string LeftPath
         {
-            get { return left.currentPath; }
+            get { return left.CurrentPath; }
         }
 
         public string RightPath
         {
-            get { return right.currentPath; }
+            get { return right.CurrentPath; }
         }
 
 
@@ -144,7 +144,7 @@ namespace MiniTC.ViewModel
             }
             else
             {
-                onPropertyChanged(nameof(LeftInsideOfFolder), nameof(RightPath));
+                onPropertyChanged(nameof(RightInsideOfFolder), nameof(RightPath));
             }
         }
     }

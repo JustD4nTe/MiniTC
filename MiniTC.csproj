@@ -69,6 +69,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\IPanelTC.cs" />
     <Compile Include="Models\PanelModel.cs" />
     <Compile Include="Properties\Resources.pl-PL.Designer.cs">
       <DependentUpon>Resources.pl-PL.resx</DependentUpon>
