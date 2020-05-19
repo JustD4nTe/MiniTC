@@ -1,6 +1,7 @@
 ﻿using MiniTC.Models;
 using MiniTC.ViewModel.BaseClass;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
 
@@ -14,11 +15,18 @@ namespace MiniTC.ViewModel
         private IPanelTC left;
         private IPanelTC right;
 
+        private IPanelTC currentPanel;
+
         private IFileManager fileManager;
 
-        public string[] LogicalDrivers
+        public string[] LeftLogicalDrivers
         {
             get { return left.ListOfDrives; }
+        }
+
+        public string[] RightLogicalDrivers
+        {
+            get { return right.ListOfDrives; }
         }
 
         public List<string> LeftInsideOfFolder
@@ -46,7 +54,6 @@ namespace MiniTC.ViewModel
             }
         }
 
-
         private string rightSelectedDrive;
         public string RightSelectedDrive
         {
@@ -72,7 +79,6 @@ namespace MiniTC.ViewModel
             get { return right.CurrentPath; }
         }
 
-
         private string leftSelectedFile;
         public string LeftSelectedFile
         {
@@ -84,7 +90,6 @@ namespace MiniTC.ViewModel
         {
             set { rightSelectedFile = value; }
         }
-
         #endregion
 
         #region Command
@@ -120,6 +125,34 @@ namespace MiniTC.ViewModel
             }
         }
 
+        private ICommand leftPanelGotFocus = null;
+        public ICommand LeftPanelGotFocus
+        {
+            get
+            {
+                if (leftPanelGotFocus == null)
+                {
+                    leftPanelGotFocus = new RelayCommand(
+                        x => currentPanel = left, x => true);
+                }
+                return leftPanelGotFocus;
+            }
+        }
+
+        private ICommand rightPanelGotFocus = null;
+        public ICommand RightPanelGotFocus
+        {
+            get
+            {
+                if (rightPanelGotFocus == null)
+                {
+                    rightPanelGotFocus = new RelayCommand(
+                        x => currentPanel = right, x => true);
+                }
+                return rightPanelGotFocus;
+            }
+        }
+
         private ICommand copy = null;
         public ICommand Copy
         {
@@ -135,8 +168,39 @@ namespace MiniTC.ViewModel
             }
         }
 
+        private ICommand leftGetLogicalDrives = null;
+        public ICommand LeftGetLogicalDrives
+        {
+            get
+            {
+                if (leftGetLogicalDrives == null)
+                {
+                    leftGetLogicalDrives = new RelayCommand(
+                        x => { left.UpdateLogicalDrives(); onPropertyChanged(nameof(LeftLogicalDrivers)); }, 
+                        x => true
+                        );
+                }
 
+                return leftGetLogicalDrives;
+            }
+        }
 
+        private ICommand rightleftGetLogicalDrives = null;
+        public ICommand RightGetLogicalDrives
+        {
+            get
+            {
+                if (rightleftGetLogicalDrives == null)
+                {
+                    rightleftGetLogicalDrives = new RelayCommand(
+                        x => { right.UpdateLogicalDrives(); onPropertyChanged(nameof(RightLogicalDrivers)); }, 
+                        x => true
+                        );
+                }
+
+                return rightleftGetLogicalDrives;
+            }
+        }
         #endregion
 
         public MiniTCViewModel()
@@ -144,10 +208,9 @@ namespace MiniTC.ViewModel
             left = new PanelModel();
             right = new PanelModel();
 
-            fileManager = new FileManager();
+            currentPanel = null;
 
-            LeftSelectedDrive = left.ListOfDrives[0];
-            RightSelectedDrive = right.ListOfDrives[0];
+            fileManager = new FileManager();
         }
 
         private void LeftEnterFile()
@@ -182,7 +245,20 @@ namespace MiniTC.ViewModel
 
         private void CopyFiles()
         {
-            fileManager.Copy(left.CurrentPath, leftSelectedFile, right.CurrentPath);
+            if (currentPanel == left)
+            {
+                fileManager.Copy(left.CurrentPath, leftSelectedFile, right.CurrentPath);
+
+                right.SetFoldersAndFilesOfCurrentFolder(right.CurrentPath);
+                onPropertyChanged(nameof(RightInsideOfFolder));
+            }
+            else
+            {
+                fileManager.Copy(right.CurrentPath, rightSelectedFile, left.CurrentPath);
+
+                left.SetFoldersAndFilesOfCurrentFolder(left.CurrentPath);
+                onPropertyChanged(nameof(LeftInsideOfFolder));
+            }
         }
     }
 }

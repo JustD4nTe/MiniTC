@@ -93,6 +93,28 @@ namespace MiniTC
             add { AddHandler(FileDoubleClickedEvent, value); }
             remove { RemoveHandler(FileDoubleClickedEvent, value); }
         }
+
+        public static readonly RoutedEvent PanelGotFocusEvent =
+            EventManager.RegisterRoutedEvent(nameof(PanelGotFocus),
+                         RoutingStrategy.Bubble, typeof(RoutedEventHandler),
+                         typeof(PanelTC));
+
+        public event RoutedEventHandler PanelGotFocus
+        {
+            add { AddHandler(PanelGotFocusEvent, value); }
+            remove { RemoveHandler(PanelGotFocusEvent, value); }
+        }
+
+        public static readonly RoutedEvent GetLogicalDrivesEvent =
+            EventManager.RegisterRoutedEvent(nameof(GetLogicalDrives),
+                         RoutingStrategy.Bubble, typeof(RoutedEventHandler),
+                         typeof(PanelTC));
+
+        public event RoutedEventHandler GetLogicalDrives
+        {
+            add { AddHandler(GetLogicalDrivesEvent, value); }
+            remove { RemoveHandler(GetLogicalDrivesEvent, value); }
+        }
         #endregion
 
         public PanelTC()
@@ -102,5 +124,11 @@ namespace MiniTC
 
         private void listOfFiles_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         => RaiseEvent(new RoutedEventArgs(FileDoubleClickedEvent));
+
+        private void listOfFiles_GotFocus(object sender, RoutedEventArgs e)
+        => RaiseEvent(new RoutedEventArgs(PanelGotFocusEvent));
+
+        private void logicalDrivers_DropDownOpened(object sender, System.EventArgs e)
+        => RaiseEvent(new RoutedEventArgs(GetLogicalDrivesEvent));
     }
 }

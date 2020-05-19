@@ -23,7 +23,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <local:PanelTC  Grid.Column="0" x:Name="leftPanel" 
-                            LogicalDrivers="{Binding Path=LogicalDrivers}"
+                            LogicalDrivers="{Binding Path=LeftLogicalDrivers}"
                             ListOfFiles="{Binding Path=LeftInsideOfFolder, Mode=OneWay}"
                             SelectedLogicalDrive="{Binding Path=LeftSelectedDrive, Mode=TwoWay}"
                             SelectedFile="{Binding Path=LeftSelectedFile, Mode=OneWayToSource}"
@@ -33,12 +33,18 @@
                     <i:EventTrigger EventName="FileDoubleClicked">
                         <i:InvokeCommandAction Command="{Binding LeftEnterTheSelectedFolder}"/>
                     </i:EventTrigger>
+                    <i:EventTrigger EventName="PanelGotFocus">
+                        <i:InvokeCommandAction Command="{Binding LeftPanelGotFocus}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="GetLogicalDrives">
+                        <i:InvokeCommandAction Command="{Binding LeftGetLogicalDrives}"/>
+                    </i:EventTrigger>
                 </i:Interaction.Triggers>
             </local:PanelTC>
 
 
             <local:PanelTC  Grid.Column="1" x:Name="rigthPanel"  
-                            LogicalDrivers="{Binding Path=LogicalDrivers}"
+                            LogicalDrivers="{Binding Path=RightLogicalDrivers, Mode=OneWay}"
                             ListOfFiles="{Binding Path=RightInsideOfFolder, Mode=OneWay}"
                             SelectedLogicalDrive="{Binding Path=RightSelectedDrive, Mode=TwoWay}"
                             SelectedFile="{Binding Path=RightSelectedFile, Mode=OneWayToSource}"
@@ -47,6 +53,12 @@
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="FileDoubleClicked">
                         <i:InvokeCommandAction Command="{Binding RightEnterTheSelectedFolder}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="PanelGotFocus">
+                        <i:InvokeCommandAction Command="{Binding RightPanelGotFocus}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="GetLogicalDrives">
+                        <i:InvokeCommandAction Command="{Binding RightGetLogicalDrives}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </local:PanelTC>
