@@ -83,28 +83,6 @@ namespace MiniTC
         #endregion
 
         #region Register Events
-        public static readonly RoutedEvent LogicDriveChangedEvent =
-            EventManager.RegisterRoutedEvent(nameof(LogicDriveChanged),
-                         RoutingStrategy.Bubble, typeof(RoutedEventHandler),
-                         typeof(PanelTC));
-
-        public event RoutedEventHandler LogicDriveChanged
-        {
-            add { AddHandler(LogicDriveChangedEvent, value); }
-            remove { RemoveHandler(LogicDriveChangedEvent, value); }
-        }
-
-        public static readonly RoutedEvent SelectedFileChangedEvent =
-            EventManager.RegisterRoutedEvent(nameof(SelectedFileChanged),
-                         RoutingStrategy.Bubble, typeof(RoutedEventHandler),
-                         typeof(PanelTC));
-
-        public event RoutedEventHandler SelectedFileChanged
-        {
-            add { AddHandler(SelectedFileChangedEvent, value); }
-            remove { RemoveHandler(SelectedFileChangedEvent, value); }
-        }
-
         public static readonly RoutedEvent FileDoubleClickedEvent =
             EventManager.RegisterRoutedEvent(nameof(FileDoubleClicked),
                          RoutingStrategy.Bubble, typeof(RoutedEventHandler),
@@ -121,12 +99,6 @@ namespace MiniTC
         {
             InitializeComponent();
         }
-
-        private void logicalDrivers_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        => RaiseEvent(new RoutedEventArgs(LogicDriveChangedEvent));
-
-        private void listOfFiles_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        => RaiseEvent(new RoutedEventArgs(SelectedFileChangedEvent));
 
         private void listOfFiles_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         => RaiseEvent(new RoutedEventArgs(FileDoubleClickedEvent));
