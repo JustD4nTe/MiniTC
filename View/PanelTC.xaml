@@ -3,9 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MiniTC"
+             xmlns:resx="clr-namespace:MiniTC.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="540">
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -17,22 +18,75 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Margin="0 0 15 0" Content="path" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-            <TextBox Grid.Column="1" Text="sdf" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+            <Label Grid.Column="0" Margin="0 0 15 0" HorizontalAlignment="Right" VerticalAlignment="Center"
+                   Content="{x:Static resx:Resources.Path}"/>
+            <TextBox Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" IsEnabled="False"
+                     Text="{
+                        Binding Path=TextPath,
+                        Mode=OneWay,
+                        RelativeSource={
+                            RelativeSource Mode=FindAncestor,
+                            AncestorType={x:Type UserControl}
+                        }
+                     }"
+                    />
         </Grid>
         <Grid Grid.Row="1" Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Margin="0 0 15 0" Content="path" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-            <ComboBox Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch">
-                <ComboBoxItem Content="C:\" />
-                <ComboBoxItem Content="D:\" />
-                <ComboBoxItem Content="F:\" />
-            </ComboBox>
+            <Label Grid.Column="0" Margin="0 0 15 0" Content="{x:Static resx:Resources.Drive}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+
+            <ComboBox   Grid.Column="1" x:Name="logicalDrivers" x:FieldModifier="private"
+                        VerticalAlignment="Center" HorizontalAlignment="Stretch"                         
+                        ItemsSource="{
+                            Binding Path=LogicalDrivers,
+                            Mode=OneTime,
+                            RelativeSource={
+                                RelativeSource Mode=FindAncestor,
+                                AncestorType={x:Type UserControl}
+                            }
+                        }"
+                        SelectedItem="{
+                            Binding Path=SelectedLogicalDrive,
+                            Mode=TwoWay,
+                            UpdateSourceTrigger=PropertyChanged,
+                            RelativeSource={
+                                RelativeSource Mode=FindAncestor,
+                                AncestorType={x:Type UserControl}
+                            }                        
+                        }"/>
         </Grid>
-        <ListView Grid.Row="2" Margin="10">
-        </ListView>
+        <ListBox   Grid.Row="2" x:Name="listOfFiles" 
+                    Margin="10"                    
+                    MouseDoubleClick="listOfFiles_MouseDoubleClick"
+                    ItemsSource="{
+                        Binding Path=ListOfFiles,
+                        Mode=OneWay,
+                        RelativeSource={
+                            RelativeSource Mode=FindAncestor,
+                            AncestorType={x:Type UserControl}
+                        }                        
+                    }"
+                    SelectedItem="{
+                            Binding Path=SelectedFile,
+                            Mode=OneWayToSource,
+                            UpdateSourceTrigger=PropertyChanged,
+                            RelativeSource={
+                                RelativeSource Mode=FindAncestor,
+                                AncestorType={x:Type UserControl}
+                            }                        
+                        }"
+        >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
     </Grid>
 </UserControl>
