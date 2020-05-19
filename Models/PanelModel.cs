@@ -8,8 +8,12 @@ namespace MiniTC.Models
     class PanelModel : IPanelTC
     {
         public string CurrentPath { get; private set;}
-        public string[] ListOfDrives { get => Directory.GetLogicalDrives(); }
+        public string[] ListOfDrives { get; } = Directory.GetLogicalDrives();
         public List<string> FolderInside { get; private set; }
+
+        public PanelModel()
+        {
+        }
 
         public bool SetFoldersAndFilesOfCurrentFolder(string path)
         {
@@ -20,7 +24,7 @@ namespace MiniTC.Models
                 folders = Directory.GetDirectories(path);
                 files = Directory.GetFiles(path);
             }
-            catch (UnauthorizedAccessException e) 
+            catch (UnauthorizedAccessException) 
             {
                 return false;
             }
@@ -48,12 +52,14 @@ namespace MiniTC.Models
                 var filePath = CurrentPath + @"\" + fileName.Substring(3);
                 return SetFoldersAndFilesOfCurrentFolder(filePath);
             }
+
             // move up
             if(fileName == "..")
             {
                 var filePath = CurrentPath + @"\" + fileName;
                 return SetFoldersAndFilesOfCurrentFolder(filePath);
             }
+
             return true;
         }
     }

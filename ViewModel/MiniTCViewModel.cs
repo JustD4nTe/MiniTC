@@ -29,25 +29,32 @@ namespace MiniTC.ViewModel
             get { return right.FolderInside; }
         }
 
+        private string leftSelectedDrive;
         public string LeftSelectedDrive
         {
+            get { return leftSelectedDrive; }
             set
             {
                 if (value != null)
                 {
-                    left.SetFoldersAndFilesOfCurrentFolder(value);
+                    leftSelectedDrive = value;
+                    left.SetFoldersAndFilesOfCurrentFolder(leftSelectedDrive);
                     onPropertyChanged(nameof(LeftSelectedDrive), nameof(LeftInsideOfFolder), nameof(LeftPath));
                 }
             }
         }
 
+
+        private string rightSelectedDrive;
         public string RightSelectedDrive
         {
+            get { return rightSelectedDrive; }
             set
             {
                 if (value != null)
                 {
-                    right.SetFoldersAndFilesOfCurrentFolder(value);
+                    rightSelectedDrive = value;
+                    right.SetFoldersAndFilesOfCurrentFolder(rightSelectedDrive);
                     onPropertyChanged(nameof(RightSelectedDrive), nameof(RightInsideOfFolder), nameof(RightPath));
                 }
             }
@@ -116,11 +123,14 @@ namespace MiniTC.ViewModel
         {
             left = new PanelModel();
             right = new PanelModel();
+
+            LeftSelectedDrive = left.ListOfDrives[0];
+            RightSelectedDrive = right.ListOfDrives[0];
         }
 
         public void LeftEnterFile()
         {
-            if (!left.EnterFile(leftSelectedFile)) 
+            if (!left.EnterFile(leftSelectedFile))
             {
                 MessageBox.Show(resource.PerrmissionError,
                                 resource.Error,

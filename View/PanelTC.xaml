@@ -43,6 +43,7 @@
                         SelectionChanged="logicalDrivers_SelectionChanged"
                         ItemsSource="{
                             Binding Path=LogicalDrivers,
+                            Mode=OneTime,
                             RelativeSource={
                                 RelativeSource Mode=FindAncestor,
                                 AncestorType={x:Type UserControl}
@@ -50,7 +51,7 @@
                         }"
                         SelectedItem="{
                             Binding Path=SelectedLogicalDrive,
-                            Mode=OneWayToSource,
+                            Mode=TwoWay,
                             UpdateSourceTrigger=PropertyChanged,
                             RelativeSource={
                                 RelativeSource Mode=FindAncestor,

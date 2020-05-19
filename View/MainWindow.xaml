@@ -25,7 +25,7 @@
             <local:PanelTC  Grid.Column="0" x:Name="leftPanel" 
                             LogicalDrivers="{Binding Path=LogicalDrivers}"
                             ListOfFiles="{Binding Path=LeftInsideOfFolder, Mode=OneWay}"
-                            SelectedLogicalDrive="{Binding Path=LeftSelectedDrive, Mode=OneWayToSource}"
+                            SelectedLogicalDrive="{Binding Path=LeftSelectedDrive, Mode=TwoWay}"
                             SelectedFile="{Binding Path=LeftSelectedFile, Mode=OneWayToSource}"
                             TextPath="{Binding Path=LeftPath, Mode=OneWay}"
                             >
@@ -40,7 +40,7 @@
             <local:PanelTC  Grid.Column="1" x:Name="rigthPanel"  
                             LogicalDrivers="{Binding Path=LogicalDrivers}"
                             ListOfFiles="{Binding Path=RightInsideOfFolder, Mode=OneWay}"
-                            SelectedLogicalDrive="{Binding Path=RightSelectedDrive, Mode=OneWayToSource}"
+                            SelectedLogicalDrive="{Binding Path=RightSelectedDrive, Mode=TwoWay}"
                             SelectedFile="{Binding Path=RightSelectedFile, Mode=OneWayToSource}"
                             TextPath="{Binding Path=RightPath, Mode=OneWay}"
                             >
