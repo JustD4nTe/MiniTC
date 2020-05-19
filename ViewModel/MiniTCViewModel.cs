@@ -14,6 +14,8 @@ namespace MiniTC.ViewModel
         private IPanelTC left;
         private IPanelTC right;
 
+        private IPanelTC currentPanel;
+
         private IFileManager fileManager;
 
         public string[] LogicalDrivers
@@ -120,6 +122,33 @@ namespace MiniTC.ViewModel
             }
         }
 
+        private ICommand leftPanelGotFocus = null;
+        public ICommand LeftPanelGotFocus
+        {
+            get { 
+                if (leftPanelGotFocus == null)
+                {
+                    leftPanelGotFocus = new RelayCommand(
+                        x => currentPanel = left, x => true);
+                }
+                return leftPanelGotFocus; 
+            }
+        }
+
+        private ICommand rightPanelGotFocus = null;
+        public ICommand RightPanelGotFocus
+        {
+            get
+            {
+                if (rightPanelGotFocus == null)
+                {
+                    rightPanelGotFocus = new RelayCommand(
+                        x => currentPanel = right, x => true);
+                }
+                return rightPanelGotFocus;
+            }
+        }
+
         private ICommand copy = null;
         public ICommand Copy
         {
@@ -143,6 +172,8 @@ namespace MiniTC.ViewModel
         {
             left = new PanelModel();
             right = new PanelModel();
+
+            currentPanel = null;
 
             fileManager = new FileManager();
 
@@ -182,7 +213,11 @@ namespace MiniTC.ViewModel
 
         private void CopyFiles()
         {
-            fileManager.Copy(left.CurrentPath, leftSelectedFile, right.CurrentPath);
+            var from = currentPanel == left ? left : right;
+            var to = currentPanel == left ? right : left;
+            var selectedFile = currentPanel == left ? leftSelectedFile : rightSelectedFile;
+
+            fileManager.Copy(from.CurrentPath, selectedFile, to.CurrentPath);
         }
     }
 }

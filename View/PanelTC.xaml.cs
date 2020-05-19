@@ -93,6 +93,17 @@ namespace MiniTC
             add { AddHandler(FileDoubleClickedEvent, value); }
             remove { RemoveHandler(FileDoubleClickedEvent, value); }
         }
+
+        public static readonly RoutedEvent PanelGotFocusEvent =
+            EventManager.RegisterRoutedEvent(nameof(PanelGotFocus),
+                         RoutingStrategy.Bubble, typeof(RoutedEventHandler),
+                         typeof(PanelTC));
+
+        public event RoutedEventHandler PanelGotFocus
+        {
+            add { AddHandler(PanelGotFocusEvent, value); }
+            remove { RemoveHandler(PanelGotFocusEvent, value); }
+        }
         #endregion
 
         public PanelTC()
@@ -102,5 +113,8 @@ namespace MiniTC
 
         private void listOfFiles_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         => RaiseEvent(new RoutedEventArgs(FileDoubleClickedEvent));
+
+        private void listOfFiles_GotFocus(object sender, RoutedEventArgs e)
+        => RaiseEvent(new RoutedEventArgs(PanelGotFocusEvent));
     }
 }

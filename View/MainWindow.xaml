@@ -33,6 +33,9 @@
                     <i:EventTrigger EventName="FileDoubleClicked">
                         <i:InvokeCommandAction Command="{Binding LeftEnterTheSelectedFolder}"/>
                     </i:EventTrigger>
+                    <i:EventTrigger EventName="PanelGotFocus">
+                        <i:InvokeCommandAction Command="{Binding LeftPanelGotFocus}"/>
+                    </i:EventTrigger>
                 </i:Interaction.Triggers>
             </local:PanelTC>
 
@@ -47,6 +50,9 @@
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="FileDoubleClicked">
                         <i:InvokeCommandAction Command="{Binding RightEnterTheSelectedFolder}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="PanelGotFocus">
+                        <i:InvokeCommandAction Command="{Binding RightPanelGotFocus}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </local:PanelTC>

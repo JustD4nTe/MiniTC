@@ -59,7 +59,8 @@
                         }"/>
         </Grid>
         <ListBox   Grid.Row="2" x:Name="listOfFiles" 
-                    Margin="10"                    
+                    Margin="10"
+                    GotFocus="listOfFiles_GotFocus"
                     MouseDoubleClick="listOfFiles_MouseDoubleClick"
                     ItemsSource="{
                         Binding Path=ListOfFiles,
