@@ -1,6 +1,7 @@
 ﻿using MiniTC.Models;
 using MiniTC.ViewModel.BaseClass;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
 
@@ -89,7 +90,6 @@ namespace MiniTC.ViewModel
         {
             set { rightSelectedFile = value; }
         }
-
         #endregion
 
         #region Command
@@ -245,11 +245,20 @@ namespace MiniTC.ViewModel
 
         private void CopyFiles()
         {
-            var from = currentPanel == left ? left : right;
-            var to = currentPanel == left ? right : left;
-            var selectedFile = currentPanel == left ? leftSelectedFile : rightSelectedFile;
+            if (currentPanel == left)
+            {
+                fileManager.Copy(left.CurrentPath, leftSelectedFile, right.CurrentPath);
 
-            fileManager.Copy(from.CurrentPath, selectedFile, to.CurrentPath);
+                right.SetFoldersAndFilesOfCurrentFolder(right.CurrentPath);
+                onPropertyChanged(nameof(RightInsideOfFolder));
+            }
+            else
+            {
+                fileManager.Copy(right.CurrentPath, rightSelectedFile, left.CurrentPath);
+
+                left.SetFoldersAndFilesOfCurrentFolder(left.CurrentPath);
+                onPropertyChanged(nameof(LeftInsideOfFolder));
+            }
         }
     }
 }
