@@ -6,7 +6,7 @@
              xmlns:resx="clr-namespace:MiniTC.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="540">
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -39,10 +39,11 @@
             <Label Grid.Column="0" Margin="0 0 15 0" Content="{x:Static resx:Resources.Drive}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
             <ComboBox   Grid.Column="1" x:Name="logicalDrivers" x:FieldModifier="private"
-                        VerticalAlignment="Center" HorizontalAlignment="Stretch"                         
+                        VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                        DropDownOpened="logicalDrivers_DropDownOpened"
                         ItemsSource="{
                             Binding Path=LogicalDrivers,
-                            Mode=OneTime,
+                            Mode=OneWay,
                             RelativeSource={
                                 RelativeSource Mode=FindAncestor,
                                 AncestorType={x:Type UserControl}

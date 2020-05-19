@@ -7,12 +7,15 @@ namespace MiniTC.Models
 {
     class PanelModel : IPanelTC
     {
+        private string[] listOfDrives;
+        public string[] ListOfDrives => listOfDrives;
+
         public string CurrentPath { get; private set; }
-        public string[] ListOfDrives { get; } = Directory.GetLogicalDrives();
         public List<string> FolderInside { get; private set; }
 
-        public PanelModel()
+        public PanelModel() 
         {
+            UpdateLogicalDrives();
         }
 
         public bool SetFoldersAndFilesOfCurrentFolder(string path)
@@ -61,6 +64,12 @@ namespace MiniTC.Models
             }
 
             return true;
+        }
+
+        public void UpdateLogicalDrives()
+        {
+            var a = Directory.GetLogicalDrives();
+            listOfDrives = a;
         }
     }
 }

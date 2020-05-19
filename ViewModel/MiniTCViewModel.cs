@@ -18,9 +18,14 @@ namespace MiniTC.ViewModel
 
         private IFileManager fileManager;
 
-        public string[] LogicalDrivers
+        public string[] LeftLogicalDrivers
         {
             get { return left.ListOfDrives; }
+        }
+
+        public string[] RightLogicalDrivers
+        {
+            get { return right.ListOfDrives; }
         }
 
         public List<string> LeftInsideOfFolder
@@ -48,7 +53,6 @@ namespace MiniTC.ViewModel
             }
         }
 
-
         private string rightSelectedDrive;
         public string RightSelectedDrive
         {
@@ -73,7 +77,6 @@ namespace MiniTC.ViewModel
         {
             get { return right.CurrentPath; }
         }
-
 
         private string leftSelectedFile;
         public string LeftSelectedFile
@@ -125,13 +128,14 @@ namespace MiniTC.ViewModel
         private ICommand leftPanelGotFocus = null;
         public ICommand LeftPanelGotFocus
         {
-            get { 
+            get
+            {
                 if (leftPanelGotFocus == null)
                 {
                     leftPanelGotFocus = new RelayCommand(
                         x => currentPanel = left, x => true);
                 }
-                return leftPanelGotFocus; 
+                return leftPanelGotFocus;
             }
         }
 
@@ -164,8 +168,39 @@ namespace MiniTC.ViewModel
             }
         }
 
+        private ICommand leftGetLogicalDrives = null;
+        public ICommand LeftGetLogicalDrives
+        {
+            get
+            {
+                if (leftGetLogicalDrives == null)
+                {
+                    leftGetLogicalDrives = new RelayCommand(
+                        x => { left.UpdateLogicalDrives(); onPropertyChanged(nameof(LeftLogicalDrivers)); }, 
+                        x => true
+                        );
+                }
 
+                return leftGetLogicalDrives;
+            }
+        }
 
+        private ICommand rightleftGetLogicalDrives = null;
+        public ICommand RightGetLogicalDrives
+        {
+            get
+            {
+                if (rightleftGetLogicalDrives == null)
+                {
+                    rightleftGetLogicalDrives = new RelayCommand(
+                        x => { right.UpdateLogicalDrives(); onPropertyChanged(nameof(RightLogicalDrivers)); }, 
+                        x => true
+                        );
+                }
+
+                return rightleftGetLogicalDrives;
+            }
+        }
         #endregion
 
         public MiniTCViewModel()
@@ -176,9 +211,6 @@ namespace MiniTC.ViewModel
             currentPanel = null;
 
             fileManager = new FileManager();
-
-            LeftSelectedDrive = left.ListOfDrives[0];
-            RightSelectedDrive = right.ListOfDrives[0];
         }
 
         private void LeftEnterFile()
