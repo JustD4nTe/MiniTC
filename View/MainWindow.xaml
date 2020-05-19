@@ -53,6 +53,12 @@
 
 
         </Grid>
-        <Button Grid.Row="1" Width="200" Height="50" Content="{x:Static resx:Resources.Copy}"/>
+        <Button Grid.Row="1" Width="200" Height="50" Content="{x:Static resx:Resources.Copy}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <i:InvokeCommandAction Command="{Binding Copy}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
     </Grid>
 </Window>

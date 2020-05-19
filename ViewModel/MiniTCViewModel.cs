@@ -14,6 +14,8 @@ namespace MiniTC.ViewModel
         private IPanelTC left;
         private IPanelTC right;
 
+        private IFileManager fileManager;
+
         public string[] LogicalDrivers
         {
             get { return left.ListOfDrives; }
@@ -117,6 +119,24 @@ namespace MiniTC.ViewModel
                 return rightEnterTheSelectedFolder;
             }
         }
+
+        private ICommand copy = null;
+        public ICommand Copy
+        {
+            get
+            {
+                if (copy == null)
+                {
+                    copy = new RelayCommand(x => CopyFiles(),
+                                            x => true);
+                }
+
+                return copy;
+            }
+        }
+
+
+
         #endregion
 
         public MiniTCViewModel()
@@ -124,11 +144,13 @@ namespace MiniTC.ViewModel
             left = new PanelModel();
             right = new PanelModel();
 
+            fileManager = new FileManager();
+
             LeftSelectedDrive = left.ListOfDrives[0];
             RightSelectedDrive = right.ListOfDrives[0];
         }
 
-        public void LeftEnterFile()
+        private void LeftEnterFile()
         {
             if (!left.EnterFile(leftSelectedFile))
             {
@@ -143,7 +165,7 @@ namespace MiniTC.ViewModel
             }
         }
 
-        public void RightEnterFile()
+        private void RightEnterFile()
         {
             if (!right.EnterFile(rightSelectedFile))
             {
@@ -156,6 +178,11 @@ namespace MiniTC.ViewModel
             {
                 onPropertyChanged(nameof(RightInsideOfFolder), nameof(RightPath));
             }
+        }
+
+        private void CopyFiles()
+        {
+            fileManager.Copy(left.CurrentPath, leftSelectedFile, right.CurrentPath);
         }
     }
 }
