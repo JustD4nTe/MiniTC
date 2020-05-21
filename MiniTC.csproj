@@ -80,7 +80,8 @@
     </Compile>
     <Compile Include="ViewModel\BaseClass\RelayCommand.cs" />
     <Compile Include="ViewModel\BaseClass\ViewModelBase.cs" />
-    <Compile Include="ViewModel\MiniTCViewModel.cs" />
+    <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="ViewModel\PanelTCViewModel.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
