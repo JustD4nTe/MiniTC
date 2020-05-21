@@ -1,7 +1,5 @@
 ﻿using MiniTC.Models;
 using MiniTC.ViewModel.BaseClass;
-using System.Collections.Generic;
-using System.IO;
 using System.Windows;
 using System.Windows.Input;
 
@@ -21,7 +19,7 @@ namespace MiniTC.ViewModel
         #endregion
 
         #region Command
-        private ICommand copy = null;
+        public ICommand copy;
         public ICommand Copy
         {
             get
@@ -31,7 +29,6 @@ namespace MiniTC.ViewModel
                     copy = new RelayCommand(x => CopyFiles(),
                                             x => true);
                 }
-
                 return copy;
             }
         }
@@ -62,22 +59,20 @@ namespace MiniTC.ViewModel
             {
                 if (!fileManager.Copy(left.CurrentPath, left.SelectedFile, right.CurrentPath))
                 {
-                    MessageBox.Show(resource.CopyError,
-                                    resource.Error,
-                                    MessageBoxButton.OK,
-                                    MessageBoxImage.Error);
+                    MessageBox.Show(resource.CopyError, resource.Error,
+                                    MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+
                 right.FolderInsideRefresh();
             }
             else
             {
                 if (!fileManager.Copy(right.CurrentPath, right.SelectedFile, left.CurrentPath))
                 {
-                    MessageBox.Show(resource.CopyError,
-                                    resource.Error,
-                                    MessageBoxButton.OK,
-                                    MessageBoxImage.Error);
+                    MessageBox.Show(resource.CopyError, resource.Error,
+                                    MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+
                 left.FolderInsideRefresh();
             }
         }

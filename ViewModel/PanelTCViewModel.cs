@@ -95,10 +95,8 @@ namespace MiniTC.ViewModel
         {
             if (!model.EnterFile(selectedFile))
             {
-                MessageBox.Show(resource.PerrmissionError,
-                                resource.Error,
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Error);
+                MessageBox.Show(resource.PerrmissionError, resource.Error,
+                                MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {

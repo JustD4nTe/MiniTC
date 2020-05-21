@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace MiniTC.Models
 {
@@ -7,28 +6,36 @@ namespace MiniTC.Models
     {
         public bool Copy(string source, string fileName, string destination)
         {
-            if(fileName == null)
+            // just return when file is not selected
+            if (fileName == null)
             {
                 return true;
             }
-            
+
+            // when file is a directory
             if (fileName.Contains("<D>"))
             {
+                // cut directory prefix from name
                 fileName = fileName.Substring(3);
+
                 var sourcePath = Path.Combine(source, fileName);
                 var destPath = Path.Combine(destination, fileName);
 
-                if(destPath.Contains(sourcePath))
+                // to prevent inifnity loop of coping
+                // not copy files from a parent folder to a child folder
+                if (destPath.Contains(sourcePath))
                 {
                     return false;
                 }
 
                 DirectoryCopy(sourcePath, destPath);
             }
+            // copy single file
             else
             {
                 var sourcePath = Path.Combine(source, fileName);
                 var destPath = Path.Combine(destination, fileName);
+
                 FileCopy(sourcePath, destPath);
             }
 
