@@ -60,12 +60,24 @@ namespace MiniTC.ViewModel
         {
             if (currentPanel == left)
             {
-                fileManager.Copy(left.CurrentPath, left.SelectedFile, right.CurrentPath);
+                if (!fileManager.Copy(left.CurrentPath, left.SelectedFile, right.CurrentPath))
+                {
+                    MessageBox.Show(resource.CopyError,
+                                    resource.Error,
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Error);
+                }
                 right.FolderInsideRefresh();
             }
             else
             {
-                fileManager.Copy(right.CurrentPath, right.SelectedFile, left.CurrentPath);
+                if (!fileManager.Copy(right.CurrentPath, right.SelectedFile, left.CurrentPath))
+                {
+                    MessageBox.Show(resource.CopyError,
+                                    resource.Error,
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Error);
+                }
                 left.FolderInsideRefresh();
             }
         }

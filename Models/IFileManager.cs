@@ -8,6 +8,6 @@ namespace MiniTC.Models
 {
     interface IFileManager
     {
-        void Copy(string source, string fileName, string destination);
+        bool Copy(string source, string fileName, string destination);
     }
 }

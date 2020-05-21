@@ -120,6 +120,9 @@
   <data name="Copy" xml:space="preserve">
     <value>Kopiuj</value>
   </data>
+  <data name="CopyError" xml:space="preserve">
+    <value>Nie możesz kopiować plików z folderu nadrzędnego do podrzędnego.</value>
+  </data>
   <data name="Drive" xml:space="preserve">
     <value>Dysk</value>
   </data>

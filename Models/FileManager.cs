@@ -1,16 +1,15 @@
 ﻿using System;
 using System.IO;
-using System.Xaml;
 
 namespace MiniTC.Models
 {
     class FileManager : IFileManager
     {
-        public void Copy(string source, string fileName, string destination)
+        public bool Copy(string source, string fileName, string destination)
         {
             if(fileName == null)
             {
-                return;
+                return true;
             }
             
             if (fileName.Contains("<D>"))
@@ -18,14 +17,22 @@ namespace MiniTC.Models
                 fileName = fileName.Substring(3);
                 var sourcePath = Path.Combine(source, fileName);
                 var destPath = Path.Combine(destination, fileName);
+
+                if(destPath.Contains(sourcePath))
+                {
+                    return false;
+                }
+
                 DirectoryCopy(sourcePath, destPath);
             }
             else
             {
-                var destPath = Path.Combine(destination, fileName);
                 var sourcePath = Path.Combine(source, fileName);
+                var destPath = Path.Combine(destination, fileName);
                 FileCopy(sourcePath, destPath);
             }
+
+            return true;
         }
 
         private void FileCopy(string sourceFile, string destFile)
