@@ -1,27 +1,45 @@
-﻿using System;
-using System.IO;
-using System.Xaml;
+﻿using System.IO;
 
 namespace MiniTC.Models
 {
     class FileManager : IFileManager
     {
-        public void Copy(string source, string fileName, string destination)
+        public bool Copy(string source, string fileName, string destination)
         {
-            
+            // just return when file is not selected
+            if (fileName == null)
+            {
+                return true;
+            }
+
+            // when file is a directory
             if (fileName.Contains("<D>"))
             {
+                // cut directory prefix from name
                 fileName = fileName.Substring(3);
+
                 var sourcePath = Path.Combine(source, fileName);
                 var destPath = Path.Combine(destination, fileName);
+
+                // to prevent inifnity loop of coping
+                // not copy files from a parent folder to a child folder
+                if (destPath.Contains(sourcePath))
+                {
+                    return false;
+                }
+
                 DirectoryCopy(sourcePath, destPath);
             }
+            // copy single file
             else
             {
-                var destPath = Path.Combine(destination, fileName);
                 var sourcePath = Path.Combine(source, fileName);
+                var destPath = Path.Combine(destination, fileName);
+
                 FileCopy(sourcePath, destPath);
             }
+
+            return true;
         }
 
         private void FileCopy(string sourceFile, string destFile)

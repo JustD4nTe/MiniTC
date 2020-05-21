@@ -10,6 +10,5 @@ namespace MiniTC.Models
 
         bool SetFoldersAndFilesOfCurrentFolder(string path);
         bool EnterFile(string fileName);
-        void UpdateLogicalDrives();
     }
 }

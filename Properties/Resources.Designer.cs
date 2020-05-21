@@ -70,6 +70,15 @@ namespace MiniTC.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You can not copy files from a parent folder to a child folder..
+        /// </summary>
+        public static string CopyError {
+            get {
+                return ResourceManager.GetString("CopyError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Drive.
         /// </summary>
         public static string Drive {

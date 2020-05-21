@@ -7,16 +7,12 @@ namespace MiniTC.Models
 {
     class PanelModel : IPanelTC
     {
-        private string[] listOfDrives;
-        public string[] ListOfDrives => listOfDrives;
+        public string[] ListOfDrives => Directory.GetLogicalDrives();
 
         public string CurrentPath { get; private set; }
         public List<string> FolderInside { get; private set; }
 
-        public PanelModel() 
-        {
-            UpdateLogicalDrives();
-        }
+        public PanelModel() { }
 
         public bool SetFoldersAndFilesOfCurrentFolder(string path)
         {
@@ -40,6 +36,7 @@ namespace MiniTC.Models
                 FolderInside.Add("..");
             }
 
+            // add only names of files/directories
             FolderInside.AddRange(folders.Select(x => "<D>" + Path.GetFileName(x)));
             FolderInside.AddRange(files.Select(x => Path.GetFileName(x)));
 
@@ -50,6 +47,13 @@ namespace MiniTC.Models
 
         public bool EnterFile(string fileName)
         {
+            // when clicked "file" is null
+            // it means that the file does not exsist
+            if (fileName == null)
+            {
+                return true;
+            }
+
             if (fileName.Contains("<D>"))
             {
                 var filePath = Path.Combine(CurrentPath, fileName.Substring(3));
@@ -64,12 +68,6 @@ namespace MiniTC.Models
             }
 
             return true;
-        }
-
-        public void UpdateLogicalDrives()
-        {
-            var a = Directory.GetLogicalDrives();
-            listOfDrives = a;
         }
     }
 }
