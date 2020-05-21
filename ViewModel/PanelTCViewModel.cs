@@ -38,7 +38,7 @@ namespace MiniTC.ViewModel
         public string SelectedFile
         {
             get { return selectedFile; }
-            set { selectedFile = value; }
+            set { selectedFile = value; PanelGotFocus.Invoke(); }
         }
 
         public delegate void foo();
@@ -75,20 +75,6 @@ namespace MiniTC.ViewModel
                         );
                 }
 
-                return getLogicalDrives;
-            }
-        }
-
-        private ICommand focused = null;
-        public ICommand Focused
-        {
-            get
-            {
-                if (focused == null)
-                {
-                    focused = new RelayCommand(x => PanelGotFocus(),
-                                               x => true);
-                }
                 return getLogicalDrives;
             }
         }

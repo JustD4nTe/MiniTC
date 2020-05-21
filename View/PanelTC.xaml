@@ -62,9 +62,6 @@
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction Command="{Binding EnterTheSelectedFolder}"/>
                 </i:EventTrigger>
-                <i:EventTrigger EventName="GotFocus">
-                    <i:InvokeCommandAction Command="{Binding Focused}"/>
-                </i:EventTrigger>
             </i:Interaction.Triggers>
             
             <ListBox.ItemTemplate>
