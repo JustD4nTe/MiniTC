@@ -8,6 +8,10 @@ namespace MiniTC.Models
     {
         public void Copy(string source, string fileName, string destination)
         {
+            if(fileName == null)
+            {
+                return;
+            }
             
             if (fileName.Contains("<D>"))
             {
