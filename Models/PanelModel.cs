@@ -46,6 +46,11 @@ namespace MiniTC.Models
 
         public bool EnterFile(string fileName)
         {
+            if (fileName == null)
+            {
+                return true;
+            }
+
             if (fileName.Contains("<D>"))
             {
                 var filePath = Path.Combine(CurrentPath, fileName.Substring(3));
